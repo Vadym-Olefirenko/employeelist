@@ -1,51 +1,31 @@
-import React from 'react';
 import './employees-list-item.css';
 
-class EmployeesListItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            increase: false,
-            like: false
-        }
-    }
-
-    onIncrease = () => {
-        this.setState(state => ({
-            increase: !state.increase
-        }));
-    }
-
-    onLike = () => {
-        this.setState(state => ({
-            like: !state.like
-        }));
-    }
-
-   render () {
+const EmployeesListItem = (props) => {
+   
     let classNames = "list-group-item d-flex justify-content-between";
-    if (this.state.increase) {
+    if (props.increase) {
         classNames += ' increase';
     }
 
-    if (this.state.like) {
+    if (props.like) {
         classNames += ' like';
     }
     return (
         <li className={classNames}>
-            <span className="list-group-item-label" onClick={this.onLike}>{this.props.name}</span>
-            <input type="text" className="list-group-item-input" defaultValue={this.props.salary + '$'}/>
+            <span className="list-group-item-label" onClick={props.onToggleProp} data-toggle="like">{props.name}</span>
+            <input type="text" className="list-group-item-input" defaultValue={props.salary + '$'}/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"
                     className="btn-cookie btn-sm "
-                    onClick={this.onIncrease}
+                    data-toggle="increase"
+                    onClick={props.onToggleProp}
                 >
                     <i className="fas fa-cookie"></i>
                 </button>
 
                 <button type="button"
                         className="btn-trash btn-sm "
-                        onClick={() => this.props.onDelete()}
+                        onClick={() => props.onDelete()}
                 >
                     <i className="fas fa-trash"></i>
                 </button>
@@ -53,7 +33,6 @@ class EmployeesListItem extends React.Component {
             </div>
         </li>
     )
-   }
 }
 
 export default EmployeesListItem;
